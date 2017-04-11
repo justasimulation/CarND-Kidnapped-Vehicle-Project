@@ -11,7 +11,7 @@ using namespace std;
 
 const int     kNumParticles   = 300;
 const bool    kDebug          = false;
-const string  kReportFileName = "../output/particles%d.txt";
+const string  kReportFileName = "output/particles%d.txt";
 int           kReportCounter  = 0;
 
 /**
@@ -149,7 +149,8 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[],
     if(kDebug)
     {
         char buf[50];
-        sprintf(buf, kReportFileName.c_str(), kReportCounter);
+        sprintf(buf, kReportFileName.c_str(), kReportCounter++);
+        write(buf);
     }
 
     // clear array of particles weights, we gonna fill it below
