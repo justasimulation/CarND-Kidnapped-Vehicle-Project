@@ -1,40 +1,31 @@
-# Overview
-This repository contains all the code needed to complete the final project for the Localization course in Udacity's Self-Driving Car Nanodegree.
+# Kidnapped Vehicle Project
+Self-Driving Car Engineer Nanodegree Program
 
-#### Submission
-All you will submit is your completed version of `particle_filter.cpp`, which is located in the `src` directory. You should probably do a `git pull` before submitting to verify that your project passes the most up-to-date version of the grading code (there are some parameters in `src/main.cpp` which govern the requirements on accuracy and run time.)
+[//]: # (Image References)
+[visualization]: ./resources/visualization.gif
 
-## Project Introduction
+
+# Project Introduction
 Your robot has been kidnapped and transported to a new location! Luckily it has a map of this location, a (noisy) GPS estimate of its initial location, and lots of (noisy) sensor and control data.
 
 In this project you will implement a 2 dimensional particle filter in C++. Your particle filter will be given a map and some initial localization information (analogous to what a GPS would provide). At each time step your filter will also get observation and control data. 
 
 ## Running the Code
-Once you have this repository on your machine, `cd` into the repository's root directory and run the following commands from the command line:
-
 ```
 > ./clean.sh
 > ./build.sh
 > ./run.sh
 ```
-
-> **NOTE**
-> If you get any `command not found` problems, you will have to install 
-> the associated dependencies (for example, 
-> [cmake](https://cmake.org/install/))
-
 If everything worked you should see something like the following output:
-
+```
 Time step: 2444
 Cumulative mean weighted error: x .1 y .1 yaw .02
 Runtime (sec): 38.187226
 Success! Your particle filter passed!
-
 ```
+
 Otherwise you might get
-.
-.
-.
+```
 Time step: 100
 Cumulative mean weighted error: x 39.8926 y 9.60949 yaw 0.198841
 Your x error, 39.8926 is larger than the maximum allowable error, 1
@@ -47,33 +38,6 @@ Success! Your particle filter passed!
 ```
 
 # Implementing the Particle Filter
-The directory structure of this repository is as follows:
-
-```
-root
-|   build.sh
-|   clean.sh
-|   CMakeLists.txt
-|   README.md
-|   run.sh
-|
-|___data
-|   |   control_data.txt
-|   |   gt_data.txt
-|   |   map_data.txt
-|   |
-|   |___observation
-|       |   observations_000001.txt
-|       |   ... 
-|       |   observations_002444.txt
-|   
-|___src
-    |   helper_functions.h
-    |   main.cpp
-    |   map.h
-    |   particle_filter.cpp
-    |   particle_filter.h
-```
 
 The only file you should modify is `particle_filter.cpp` in the `src` directory. The file contains the scaffolding of a `ParticleFilter` class and some associated methods. Read through the code, the comments, and the header file `particle_filter.h` to get a sense for what this code is expected to do.
 
@@ -115,5 +79,38 @@ The two things the grading code is looking for are:
 1. **Accuracy**: your particle filter should localize vehicle position and yaw to within the values specified in the parameters `max_translation_error` and `max_yaw_error` in `src/main.cpp`.
 2. **Performance**: your particle filter should complete execution within the time specified by `max_runtime` in `src/main.cpp`.
 
+# Results
+
+The minimum number of particles to pass the test is 11.
+```
+Cumulative mean weighted error: x 0.160364 y 0.128311 yaw 0.00511329
+Runtime (sec): 0.585984
+Success! Your particle filter passed!
+```
+
+The maximum number of particles to pass the test on my computer is approximately 1600.
+```
+Cumulative mean weighted error: x 0.107437 y 0.0998683 yaw 0.00349442
+Runtime (sec): 44.2359
+Success! Your particle filter passed!
+
+```
+
+The submitted version uses 300 particles and shows almost the same results.
+
+```
+Cumulative mean weighted error: x 0.109366 y 0.102328 yaw 0.00356961
+Runtime (sec): 8.40976
+Success! Your particle filter passed!
+```
 
 
+![alt_text][visualization]
+
+# Reflections
+
+* Particle filter seems nice and easy to implement.
+* It looks quite effective as it starts showing good result with a small number of particles.
+* Error situations were not covered in the project e.g. when a sensor blacks out for a short period.
+* But it looks like some error situations can be handled quite easily by just restarting 
+the filter.
